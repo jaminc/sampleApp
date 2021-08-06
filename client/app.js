@@ -1,5 +1,3 @@
-console.error('asidjfoidsjfioj');
-console.error('asidjfoidsjfioj');
-console.error('asidjfoidsjfioj');
-console.error('asidjfoidsjfioj');
-console.error('asidjfoidsjfioj');
+window.addEventListener('DOMContentLoaded', event => {
+  console.log('App.js code');
+})
