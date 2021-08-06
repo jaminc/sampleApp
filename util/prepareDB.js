@@ -15,6 +15,7 @@ async function reseedData(sequelizeDb) {
 }
 
 async function prepareDB() {
+  // Drop all tables
   await sequelizeDb.sync({ force: true })
 
   await reseedData(sequelizeDb)
