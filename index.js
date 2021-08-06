@@ -14,12 +14,12 @@ prepareDB().then(sequelizeDb => {
   app.use(bodyParser.urlencoded({
     extended: true,
   }))
+  app.use(express.static(path.join(__dirname, 'client')))
+  app.use(userRoutes)
 
   app.get('/', async (req, res) => {
-    res.sendFile(path.join(rootDir, 'index.html'))
+    res.sendFile(path.join(__dirname, 'index.html'))
   })
-
-  app.use(userRoutes)
 
   app.listen(port, () => {
     console.log(`App started on port: ${port}`);
