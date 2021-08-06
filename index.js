@@ -1,56 +1,27 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const port = 3000
+const prepareDB = require('./util/prepareDB')
 
-const { Sequelize, DataTypes } = require('sequelize')
+const port = 3000
 const app = express()
 
-const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: `./database.sqlite`
-})
 
-sequelize.authenticate()
-  .then(() => console.log('Connection has been established successfully.'))
-  .catch(err => console.error('Unable to connect to the database:', e))
+prepareDB().then(sequelizeDb => {
+  app.use(bodyParser.json())
+  app.use(bodyParser.urlencoded({
+    extended: true,
+  }))
 
-sequelize.define('User', {
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lastName: DataTypes.STRING,
-})
+  app.get('/', async (req, res) => {
+    // res.send('Hello world!')
+    const users = await sequelizeDb.models.User.findAll()
 
-sequelize.sync({ force: true })
-  .then(() => {
-    return sequelize.models.User.bulkCreate([
-      {
-        firstName: 'jim',
-        lastName: 'wood',
-      },
-      {
-        firstName: 'hello',
-      }
-    ])
+    res.json(users)
   })
-  .catch(error => console.error('Error seeding data', error))
 
+  app.listen(port, () => {
+    console.log(`App started on port: ${port}`);
+  })
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-  extended: true,
-}))
-
-
-
-app.get('/', async (req, res) => {
-  // res.send('Hello world!')
-  const users = await sequelize.models.User.findAll()
-
-  res.json(users)
 })
 
-app.listen(port, () => {
-  console.log(`App started on port: ${port}`);
-})
