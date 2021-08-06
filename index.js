@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const prepareDB = require('./util/prepareDB')
+const userRoutes = require('./routes/User')
 
 const port = 3000
 const app = express()
@@ -13,11 +14,10 @@ prepareDB().then(sequelizeDb => {
   }))
 
   app.get('/', async (req, res) => {
-    // res.send('Hello world!')
-    const users = await sequelizeDb.models.User.findAll()
-
-    res.json(users)
+    res.send('Hello world!')
   })
+
+  app.use(userRoutes)
 
   app.listen(port, () => {
     console.log(`App started on port: ${port}`);
