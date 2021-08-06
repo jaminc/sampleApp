@@ -1,6 +1,9 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const prepareDB = require('./util/prepareDB')
+const prepareDB = require('./server/util/prepareDB')
+const userRoutes = require('./server/routes/User')
+const path = require('path')
+const rootDir = require('./server/util/rootDir')
 
 const port = 3000
 const app = express()
@@ -11,17 +14,15 @@ prepareDB().then(sequelizeDb => {
   app.use(bodyParser.urlencoded({
     extended: true,
   }))
+  app.use(express.static(path.join(__dirname, 'client')))
+  app.use(userRoutes)
 
   app.get('/', async (req, res) => {
-    // res.send('Hello world!')
-    const users = await sequelizeDb.models.User.findAll()
-
-    res.json(users)
+    res.sendFile(path.join(__dirname, 'index.html'))
   })
 
   app.listen(port, () => {
     console.log(`App started on port: ${port}`);
   })
-
 })
 
