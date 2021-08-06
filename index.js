@@ -10,12 +10,9 @@ const sequelize = new Sequelize({
   storage: `./database.sqlite`
 })
 
-try {
-  sequelize.authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-} catch (e) {
-  console.error('Unable to connect to the database:', e);
-}
+sequelize.authenticate()
+  .then(() => console.log('Connection has been established successfully.'))
+  .catch(err => console.error('Unable to connect to the database:', e))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
