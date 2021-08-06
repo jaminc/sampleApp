@@ -1,7 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const prepareDB = require('./util/prepareDB')
-const userRoutes = require('./routes/User')
+const prepareDB = require('./server/util/prepareDB')
+const userRoutes = require('./server/routes/User')
 
 const port = 3000
 const app = express()
