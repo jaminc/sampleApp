@@ -11,9 +11,7 @@ router.get('/users', async (req, res) => {
 
 router.get('/users/:id', async (req, res) => {
   const { id } = req.params
-  const user = await User.findAll({
-    where: { id, }
-  })
+  const user = await User.findByPk(id)
 
   res.json(user)
 })
