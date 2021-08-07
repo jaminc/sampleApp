@@ -3,7 +3,6 @@ const bodyParser = require('body-parser')
 const prepareDB = require('./server/util/prepareDB')
 const userRoutes = require('./server/routes/User')
 const path = require('path')
-const rootDir = require('./server/util/rootDir')
 
 const port = 3000
 const app = express()
