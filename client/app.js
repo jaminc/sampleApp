@@ -7,6 +7,6 @@ window.addEventListener('DOMContentLoaded', async () => {
   const containerEl = document.getElementById('js-container')
   const newContentEl = document.createElement('div')
 
-  newContentEl.innerText = `These are the users ${users}`
+  newContentEl.innerText = `These are the users ${users[0].firstName}`
   containerEl.append(newContentEl)
 })
