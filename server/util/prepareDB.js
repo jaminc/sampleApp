@@ -8,7 +8,7 @@ async function reseedData(sequelizeDb) {
       lastName: 'wood',
     },
     {
-      firstName: 'hello',
+      firstName: 'jane',
     }
   ])
   .catch(error => console.error('Error seeding data', error))
