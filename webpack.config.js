@@ -1,8 +1,25 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
+  mode: 'development',
+  devServer: {
+    historyApiFallback: true,
+    contentBase: path.resolve(__dirname, './dist'),
+    open: true,
+    compress: true,
+    hot: true,
+    port: 8080,
+    proxy: {
+    '/': {
+      target: 'http://localhost:3000',
+      // pathRewrite: { '^/api': '' },
+    },
+},
+  },
+  devtool: 'inline-source-map',
   entry: {
     main: path.resolve(__dirname, './src/app.js'),
   },
@@ -17,6 +34,7 @@ module.exports = {
       filename: 'index.html',
     }),
     new CleanWebpackPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   module: {
     rules: [
